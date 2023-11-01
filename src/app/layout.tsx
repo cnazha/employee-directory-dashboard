@@ -11,6 +11,7 @@ import ListItemText from '@mui/material/ListItemText';
 
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
+import ApolloWrapper from "@/config/graphql/apollo.wrapper";
 
 
 const DRAWER_WIDTH = 240;
@@ -63,7 +64,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               p: 3,
             }}
           >
+          <ApolloWrapper>
             {children}
+          </ApolloWrapper>
           </Box>
         </ThemeRegistry>
       </body>
