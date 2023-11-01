@@ -1,0 +1,30 @@
+query GetEmployees($filter: EmployeeFilterInput, $pagination: PaginationInput, $sort: SortEmployeeInput) {
+    employees(filter: $filter, pagination: $pagination, sort: $sort) {
+        hasNextPage
+        items {
+            age
+            birthdate
+            createdAt
+            department {
+                createdAt
+                id
+                name
+                updatedAt
+            }
+            email
+            firstName
+            id
+            jobTitle
+            lastName
+            name
+            phone
+            salaryCurrency
+            status
+            updatedAt
+        }
+        page
+        success
+        totalCount
+        totalPages
+    }
+}
