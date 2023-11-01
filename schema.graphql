@@ -1,0 +1,292 @@
+# This file was generated. Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+interface MutationResponse {
+    message: String
+    success: Boolean!
+}
+
+interface UserInterface {
+    age: PositiveInt
+    birthdate: Date
+    createdAt: DateTime
+    email: EmailAddress!
+    firstName: String!
+    id: ID!
+    lastName: String!
+    name: String!
+    phone: PhoneNumber
+    updatedAt: DateTime
+}
+
+type AddressEntity {
+    building: String!
+    city: String!
+    coordinates: GeoCoordinatesEntity
+    country: CountryCode!
+    createdAt: DateTime
+    id: ID!
+    notes: String!
+    postalCode: PostalCode
+    state: String!
+    street: String!
+    updatedAt: DateTime
+}
+
+type CreateDepartmentMutationResponse implements MutationResponse {
+    item: Department
+    message: String
+    success: Boolean!
+}
+
+type CreateEmployeeMutationResponse implements MutationResponse {
+    item: Employee
+    message: String
+    success: Boolean!
+}
+
+type Department {
+    createdAt: DateTime
+    id: ID!
+    "Department name"
+    name: String!
+    updatedAt: DateTime
+}
+
+type DepartmentsListResponse {
+    hasNextPage: Boolean
+    items: [Department!]
+    page: PositiveInt!
+    success: Boolean!
+    totalCount: NonNegativeInt!
+    totalPages: NonNegativeInt!
+}
+
+type Employee implements UserInterface {
+    address: AddressEntity
+    age: PositiveInt
+    avatar: ImageEntity
+    "Employee Birthdate - example 2000-01-20"
+    birthdate: Date
+    createdAt: DateTime
+    department: Department!
+    email: EmailAddress!
+    "First name"
+    firstName: String!
+    id: ID!
+    jobTitle: String
+    "Last name"
+    lastName: String!
+    name: String!
+    phone: PhoneNumber!
+    salaryCurrency: Currency @deprecated(reason: "This field has been deprecated in favor of the Accounting Service")
+    status: EmployeeStatus!
+    updatedAt: DateTime
+}
+
+type EmployeesListResponse {
+    hasNextPage: Boolean
+    items: [Employee!]
+    page: PositiveInt!
+    success: Boolean!
+    totalCount: NonNegativeInt!
+    totalPages: NonNegativeInt!
+}
+
+type GeoCoordinatesEntity {
+    latitude: Latitude!
+    longitude: Longitude!
+}
+
+type ImageEntity {
+    "Image aspect ratio from width / height"
+    aspectRatio: Float
+    createdAt: DateTime
+    "Original image height"
+    height: Float!
+    id: ID!
+    "Image path on Firebase Bucket"
+    path: String!
+    updatedAt: DateTime
+    "Public image URL"
+    url: URL!
+    "Original image width"
+    width: Float!
+}
+
+type Mutation {
+    createDepartment(createDepartmentInput: CreateDepartmentInput!): CreateDepartmentMutationResponse!
+    createEmployee(createEmployeeInput: CreateEmployeeInput!): CreateEmployeeMutationResponse!
+    removeDepartment(id: String!): RemoveDepartmentMutationResponse!
+    removeEmployee(id: String!): RemoveEmployeeMutationResponse!
+    updateDepartment(updateDepartmentInput: UpdateDepartmentInput!): UpdateDepartmentMutationResponse!
+    updateEmployee(updateEmployeeInput: UpdateEmployeeInput!): UpdateEmployeeMutationResponse!
+    updateEmployeeStatus(updateEmployeeStatusInput: UpdateEmployeeStatusInput!): UpdateEmployeeMutationResponse!
+}
+
+type Query {
+    department(id: String!): Department!
+    departments: DepartmentsListResponse!
+    employee(id: String!): Employee!
+    employees(filter: EmployeeFilterInput, pagination: PaginationInput = {limit: 10, page: 1}, sort: SortEmployeeInput): EmployeesListResponse!
+}
+
+type RemoveDepartmentMutationResponse implements MutationResponse {
+    item: Department
+    message: String
+    success: Boolean!
+}
+
+type RemoveEmployeeMutationResponse implements MutationResponse {
+    item: Employee
+    message: String
+    success: Boolean!
+}
+
+type UpdateDepartmentMutationResponse implements MutationResponse {
+    item: Department
+    message: String
+    success: Boolean!
+}
+
+type UpdateEmployeeMutationResponse implements MutationResponse {
+    item: Employee
+    message: String
+    success: Boolean!
+}
+
+enum EmployeeStatus {
+    ACTIVE
+    INACTIVE
+    SUSPENDED
+}
+
+enum SortOrder {
+    ASC
+    DESC
+}
+
+"A country code as defined by ISO 3166-1 alpha-2"
+scalar CountryCode
+
+"A field whose value is a Currency: https://en.wikipedia.org/wiki/ISO_4217."
+scalar Currency
+
+"A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar Date
+
+"A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar."
+scalar DateTime
+
+"A field whose value conforms to the standard internet email address format as specified in HTML Spec: https://html.spec.whatwg.org/multipage/input.html#valid-e-mail-address."
+scalar EmailAddress
+
+"A field whose value is a valid decimal degrees latitude number (53.471): https://en.wikipedia.org/wiki/Latitude"
+scalar Latitude
+
+"A field whose value is a valid decimal degrees longitude number (53.471): https://en.wikipedia.org/wiki/Longitude"
+scalar Longitude
+
+"Integers that will have a value of 0 or more."
+scalar NonNegativeInt
+
+"A field whose value conforms to the standard E.164 format as specified in: https://en.wikipedia.org/wiki/E.164. Basically this is +17895551234."
+scalar PhoneNumber
+
+"Integers that will have a value greater than 0."
+scalar PositiveInt
+
+"A field whose value conforms to the standard postal code formats for United States, United Kingdom, Germany, Canada, France, Italy, Australia, Netherlands, Spain, Denmark, Sweden, Belgium, India, Austria, Portugal, Switzerland or Luxembourg."
+scalar PostalCode
+
+"A field whose value conforms to the standard URL format as specified in RFC3986: https://www.ietf.org/rfc/rfc3986.txt."
+scalar URL
+
+"A field whose value is a generic Universally Unique Identifier: https://en.wikipedia.org/wiki/Universally_unique_identifier."
+scalar UUID
+
+input CreateDepartmentInput {
+    "Department name"
+    name: String!
+}
+
+input CreateEmployeeInput {
+    avatar: ImageInput
+    "Employee birthdate"
+    birthdate: Date
+    department: String
+    "Employee email address"
+    email: EmailAddress!
+    "Employee first name"
+    firstName: String!
+    jobTitle: String
+    "Employee last name"
+    lastName: String!
+    "Employee phone number"
+    phone: PhoneNumber!
+    salaryCurrency: Currency!
+}
+
+input EmployeeFilterInput {
+    "Employee departments"
+    departments: String
+    name: String
+    status: EmployeeStatus
+}
+
+input ImageInput {
+    "Original image height"
+    height: Float!
+    "Image path on Firebase Bucket"
+    path: String!
+    "Public image URL"
+    url: URL!
+    "Original image width"
+    width: Float!
+}
+
+input PaginationInput {
+    limit: PositiveInt = 10
+    page: PositiveInt = 1
+}
+
+input SortEmployeeInput {
+    createdAt: SortOrder = DESC
+    name: SortOrder
+    updatedAt: SortOrder
+}
+
+input UpdateDepartmentInput {
+    id: String!
+    "Department name"
+    name: String
+}
+
+input UpdateEmployeeInput {
+    avatar: ImageInput
+    "Employee birthdate"
+    birthdate: Date
+    department: String
+    "Employee email address"
+    email: EmailAddress
+    "Employee first name"
+    firstName: String
+    "Employee id"
+    id: UUID!
+    jobTitle: String
+    "Employee last name"
+    lastName: String
+    "Employee phone number"
+    phone: PhoneNumber
+}
+
+input UpdateEmployeeStatusInput {
+    "Employee id"
+    id: UUID!
+    "Employee status"
+    status: EmployeeStatus!
+}
