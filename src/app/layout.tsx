@@ -1,3 +1,4 @@
+"use client";
 import * as React from 'react';
 import Link from 'next/link';
 import Box from '@mui/material/Box';
@@ -12,6 +13,8 @@ import ListItemText from '@mui/material/ListItemText';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import ApolloWrapper from "@/config/graphql/apollo.wrapper";
+import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+import {LocalizationProvider} from "@mui/x-date-pickers";
 
 
 const DRAWER_WIDTH = 240;
@@ -27,6 +30,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en">
       <body>
         <ThemeRegistry>
+
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Drawer
             sx={{
               width: DRAWER_WIDTH,
@@ -68,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             {children}
           </ApolloWrapper>
           </Box>
+            </LocalizationProvider>
         </ThemeRegistry>
       </body>
     </html>
