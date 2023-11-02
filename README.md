@@ -38,7 +38,13 @@ cp .env.example .env.local
 npm install
 ```
 
-3. Start the development server:
+3. Generate the GraphQL schema and hooks:
+
+```bash
+npm run codegen
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
