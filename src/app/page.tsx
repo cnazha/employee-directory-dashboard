@@ -5,6 +5,9 @@ export default function HomePage() {
   return (
     <Box sx={{ display: 'flex' }}>
 
+      <h1>
+        Login
+      </h1>
     </Box>
   );
 }
