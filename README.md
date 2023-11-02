@@ -11,9 +11,10 @@ use the following credentials to login:
 ## Table of Contents
 
 1. [Getting Started](#getting-started)
-2. [Project Structure](#project-structure)
-3. [Technologies](#technologies)
-4. [Deployment](#deployment)
+2. [Concepts Covered](#concepts-covered)
+3. [Project Structure](#project-structure)
+4. [Technologies](#technologies)
+5. [Deployment](#deployment)
 6. [License](#license)
 
 ## Getting Started
@@ -38,11 +39,29 @@ cp .env.example .env.local
 npm install
 ```
 
-3. Start the development server:
+3. Generate the GraphQL schema and hooks:
+
+```bash
+npm run codegen
+```
+
+4. Start the development server:
 
 ```bash
 npm run dev
 ```
+
+## Concepts Covered
+- [x] React design patterns with React Context and React Hooks, memo, useMemo, useCallback, and useReducer.
+- [x] Form validation rerender optimization with react-form-hooks and validation schema with yup.
+- [x] Authentication with Firebase.
+- [x] Next routing with protected routes.
+- [x] Data fetching with Apollo Client. Automated GraphQL schema and hooks generation with GraphQL Code Generator.
+- [x] Image upload with Firebase Storage. Automated image resize and compression with Firebase Extensions.
+- [x] Custom React hooks for Firebase and Apollo.
+- [x] Search with debounce.
+- [x] Vercel deployment.
+- TODO - pagination - responsive design - unit testing - type and eslint corrections
 
 ## Project Structure
 All the source code is located in the `src/` directory. The project structure is as follows:
