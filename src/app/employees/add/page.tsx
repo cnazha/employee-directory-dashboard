@@ -42,7 +42,10 @@ let employeeSchema = object({
 const AddEmployeePage = () => {
 
     const router = useRouter();
-    const [createEmployee] = useCreateEmployeeMutation()
+    const [createEmployee] = useCreateEmployeeMutation({
+        refetchQueries: ['GetEmployees'],
+        notifyOnNetworkStatusChange: true,
+    })
 
     return (<Container>
         <h1>Add Employee</h1>

@@ -21,6 +21,7 @@ const EmployeesPage = () => {
         data, refetch, networkStatus,
     } = useGetEmployeesQuery({
         fetchPolicy: 'cache-and-network',
+        notifyOnNetworkStatusChange: true,
     })
 
     const employees = useMemo(() => {
