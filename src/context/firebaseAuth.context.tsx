@@ -69,7 +69,6 @@ type AuthProviderProps = {
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
-    console.log(state);
     const initialize = useCallback(() => {
         try {
             onAuthStateChanged(AUTH, async (user) => {
@@ -110,7 +109,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
                 }
             });
         } catch (error) {
-            console.error(error);
             dispatch({
                 type: Types.INITIAL,
                 payload: {

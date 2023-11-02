@@ -1,8 +1,6 @@
 "use client";
-import React from 'react';
 import {Button, Container, Paper} from "@mui/material";
 import {FormContainer} from "react-hook-form-mui";
-import * as yup from "yup";
 import {date, object, string} from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 
@@ -25,19 +23,6 @@ const defaultEmployeeFormValues: Partial<Omit<Employee, 'department'>> & {
     birthdate: null
 }
 
-let employeeSchema = object({
-    firstName: string().required('First name is required'),
-    lastName: string().required('Last name is required'),
-    department: object({
-        id: string().required('Department is required'),
-    }),
-    birthdate: date().required('Birth date is required'),
-    email: string().email('Invalid email').required('Email is required'),
-    phone: yup
-        .string()
-        .phone(["LB", "FR", "US"], "Please enter a valid phone number")
-        .required(),
-});
 
 const AddEmployeePage = () => {
 
@@ -47,6 +32,20 @@ const AddEmployeePage = () => {
         notifyOnNetworkStatusChange: true,
     })
 
+    let employeeSchema = object({
+        firstName: string().required('First name is required'),
+        lastName: string().required('Last name is required'),
+        department: object({
+            id: string().required('Department is required'),
+        }),
+        birthdate: date().required('Birth date is required'),
+        email: string().email('Invalid email').required('Email is required'),
+        // @ts-ignore
+        phone: string()
+            .phone(["LB", "FR", "US"], "Please enter a valid phone number")
+            .required(),
+    });
+
     return (<Container>
         <h1>Add Employee</h1>
         <Paper sx={{
@@ -55,7 +54,7 @@ const AddEmployeePage = () => {
             <FormContainer
                 onSuccess={async (data) => {
                     // use date-fns to format the date to yyyy-mm-dd
-                    console.log(data)
+
                     const birthdate = format(data.birthdate, 'yyyy-MM-dd')
 
                     try {
@@ -80,9 +79,6 @@ const AddEmployeePage = () => {
                     } catch (e: Error | any) {
                         alert(e?.message || e)
                     }
-                }}
-                onError={(e) => {
-                    console.error(e)
                 }}
                 // @ts-ignore
                 resolver={yupResolver(employeeSchema)}

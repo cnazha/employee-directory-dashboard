@@ -1,3 +1,4 @@
+'use client';
 import {Controller, DatePickerElement, useFormContext, useFormState} from "react-hook-form-mui";
 import {Stack} from "@mui/system";
 import {MuiTelInput} from "mui-tel-input";
@@ -26,6 +27,7 @@ const EmployeeForm = ({children}: {
                        name={'email'}/>
         <DatePickerElement name={'birthdate'}
                            label="Birthdate"
+                           // @ts-ignore
                             error={errors['birthdate']}
                            maxDate={employeeMaxBirthDate}
                            minDate={employeeMinBirthDate}
