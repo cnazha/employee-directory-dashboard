@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import Divider from "@mui/material/Divider";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -9,16 +9,24 @@ import ListItemText from "@mui/material/ListItemText";
 import Drawer from "@mui/material/Drawer";
 import ChecklistIcon from "@mui/icons-material/Checklist";
 import Box from "@mui/material/Box";
+import {useFirebaseAuthContext} from "@/context/useFirebaseAuth.context";
+import {useRouter} from "next/navigation";
 
 
 const DRAWER_WIDTH = 240;
 
-const LINKS = [{text: 'Employees', href: '/employees', icon: ChecklistIcon}, {text: 'Departments', href: '/departments', icon: ChecklistIcon},];
+const LINKS = [{text: 'Employees', href: '/dashboard/employees', icon: ChecklistIcon}, {text: 'Departments', href: '/dashboard/departments', icon: ChecklistIcon},];
 
 
 const DashboardLayout = ({children}: {
     children: React.ReactNode;
 }) => {
+    const {logout} = useFirebaseAuthContext()
+    const router = useRouter();
+    const handleLogout = useCallback(async () => {
+        await logout();
+        router.push('/');
+    }, [logout, router]);
     return (
         <Box
             component="main"
@@ -45,8 +53,20 @@ const DashboardLayout = ({children}: {
                             <ListItemText primary={text}/>
                         </ListItemButton>
                     </ListItem>))}
+
+                    <Divider/>
+                    <ListItemButton
+                        onClick={handleLogout}
+                    >
+                        <ListItemText primary={'Logout'}/>
+                    </ListItemButton>
                 </List>
+
+
+
             </Drawer>
+            {children}
+
         </Box>
     );
 };

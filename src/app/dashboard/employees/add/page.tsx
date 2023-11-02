@@ -76,7 +76,7 @@ const AddEmployeePage = () => {
                         if (!employee?.success){
                             return alert(employee?.message);
                         }
-                        router.push('/employees')
+                        router.push('/dashboard/employees')
                     } catch (e: Error | any) {
                         alert(e?.message || e)
                     }

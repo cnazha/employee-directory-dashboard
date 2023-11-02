@@ -7,7 +7,7 @@ type Props = {
     children: React.ReactNode;
 };
 
-export default function AuthGuard({ children }: Props) {
+const  AuthGuard = ({ children }: Props) => {
     const router = useRouter();
 
     const { authenticated, method } = useFirebaseAuthContext();
@@ -16,9 +16,7 @@ export default function AuthGuard({ children }: Props) {
 
     const check = useCallback(() => {
         if (!authenticated) {
-
             const loginPath = '/';
-
             router.replace(loginPath);
         } else {
             setChecked(true);
@@ -35,3 +33,5 @@ export default function AuthGuard({ children }: Props) {
 
     return <>{children}</>;
 }
+
+export default AuthGuard;

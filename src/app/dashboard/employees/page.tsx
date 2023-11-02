@@ -19,6 +19,7 @@ const EmployeesPage = () => {
 
     const {
         data, refetch, networkStatus,
+        error
     } = useGetEmployeesQuery({
         fetchPolicy: 'cache-and-network',
         notifyOnNetworkStatusChange: true,
@@ -64,7 +65,7 @@ const EmployeesPage = () => {
                     <Typography variant="body1" gutterBottom>
                         Employees Page
                     </Typography>
-                    <Link href={'/employees/add'}>
+                    <Link href={'/dashboard/employees/add'}>
                         <Button variant="contained">Add Employee</Button>
                     </Link>
                 </Stack>
@@ -78,7 +79,7 @@ const EmployeesPage = () => {
                         onChange={onNameChange}
                         sx={{
                             marginTop: 2,
-                            maxWidth: 'md',
+                            width: '100%',
                         }}
                     />
                 </Paper>
