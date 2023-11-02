@@ -44,6 +44,9 @@ const EmployeeForm = ({children}: {
                            maxDate={employeeMaxBirthDate}
                            minDate={employeeMinBirthDate}
                            defaultValue={employeeMinBirthDate}
+                           disableFuture
+                           textReadOnly
+
         />
 
         <Controller

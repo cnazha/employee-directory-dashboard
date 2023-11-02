@@ -15,12 +15,24 @@ import {date, number, object, string} from "yup";
 const AddEmployeePage = () => {
 
     const router = useRouter();
-    const [createEmployee] = useCreateEmployeeMutation({
+    const [createEmployee, {
+        loading
+    }] = useCreateEmployeeMutation({
         refetchQueries: ['GetEmployees'],
         notifyOnNetworkStatusChange: true,
     })
 
     const handleAddEmployee = useCallback(async (data: Partial<typeof defaultEmployeeFormValues>) => {
+
+        // Check if birthdate is valid
+        if (!data.birthdate) {
+            return alert('Birthdate is required');
+        }
+
+        // Birthdate should be between 18 and 60 years old using date fns
+        
+
+
         const birthdate = format(data.birthdate, 'yyyy-MM-dd')
 
         try {
@@ -82,8 +94,10 @@ const AddEmployeePage = () => {
                 resolver={yupResolver(addEmployeeSchema)}
                 defaultValues={defaultEmployeeFormValues}>
                 <EmployeeForm>
-                    <Button variant="contained" type="submit">
-                        Add Employee
+                    <Button
+                        disabled={loading}
+                        variant="contained" type="submit">
+                        {loading ? 'Adding' : 'Add'} Employee
                     </Button>
                 </EmployeeForm>
             </FormContainer>
