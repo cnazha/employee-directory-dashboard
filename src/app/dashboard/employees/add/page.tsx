@@ -2,10 +2,8 @@
 import {Button, Container, Paper} from "@mui/material";
 import {FormContainer} from "react-hook-form-mui";
 import {yupResolver} from "@hookform/resolvers/yup";
-
 import EmployeeForm from "@/components/employees/employeeForm";
 import {useCreateEmployeeMutation} from "@/gql/operations";
-import "yup-phone-lite";
 import {format} from "date-fns";
 import {useRouter} from "next/navigation";
 import {addEmployeeSchema, defaultEmployeeFormValues} from "@/config/form/addEmployee.form";
