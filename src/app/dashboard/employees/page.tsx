@@ -24,6 +24,13 @@ const EmployeesPage = () => {
     } = useGetEmployeesQuery({
         fetchPolicy: 'cache-and-network',
         notifyOnNetworkStatusChange: true,
+        defaultOptions: {
+            variables:{
+                pagination: {
+                    limit: 100,
+                }
+            }
+        }
     })
 
     const employees = useMemo(() => {
