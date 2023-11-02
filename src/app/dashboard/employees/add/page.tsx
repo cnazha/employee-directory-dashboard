@@ -54,7 +54,7 @@ const AddEmployeePage = () => {
             path: string().required('Image is required'),
             width: number().default(300).required('Image is required'),
             height: number().default(300).required('Image is required'),
-        })
+        }).required('Image is required')
     });
 
     return (<Container>
