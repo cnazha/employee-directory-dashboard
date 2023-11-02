@@ -1,8 +1,8 @@
 import React from 'react';
 import useUploadImage, {ImageEntity} from "@/hooks/useUploadImage";
-import {Button} from "@mui/material";
+import {Button, FormHelperText} from "@mui/material";
 import {useWatch} from "react-hook-form";
-import {useFormContext} from "react-hook-form-mui";
+import {useFormContext, useFormState} from "react-hook-form-mui";
 import {Stack} from "@mui/system";
 
 type ImageUploadProps = {
@@ -10,13 +10,17 @@ type ImageUploadProps = {
 }
 
 const ImageUpload = ({entity = ImageEntity.PROFILE}:ImageUploadProps) => {
-    const {setValue} = useFormContext()
+    const {setValue, clearErrors} = useFormContext()
     const {uploading, uploadImage} = useUploadImage()
     const {avatar} = useWatch()
     const handleImageChange = async (e: any) => {
         const data = await uploadImage(e, entity);
-        setValue('avatar', data)
+        setValue('avatar', data);
+        clearErrors('avatar')
+
     }
+
+    const {errors} = useFormState()
 
     return (
         <Stack spacing={2}>
@@ -27,16 +31,21 @@ const ImageUpload = ({entity = ImageEntity.PROFILE}:ImageUploadProps) => {
                 style={{width: 300, height: 300}}
             />}
 
+
             <Button
                 disabled={uploading}
                 variant="contained" component="label" sx={{
-                width: 120,
+                width: 200,
             }}>
-                Select File
+                {avatar?.url ? 'Change' : 'Upload'} {entity}
                 <input hidden accept="image/*"
                        onChange={handleImageChange}
                        type="file" />
             </Button>
+
+            <FormHelperText error>
+                {errors?.['avatar']?.message}
+            </FormHelperText>
         </Stack>
     );
 };

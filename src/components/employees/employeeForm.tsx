@@ -6,7 +6,6 @@ import React from "react";
 import FormTextField from "@/components/form/formTextField";
 import DepartmentsDropDown from "@/components/departments/departmentsDropdown";
 import {employeeMaxBirthDate, employeeMinBirthDate} from "@/config/config";
-import useUploadImage from "@/hooks/useUploadImage";
 import ImageUpload from "@/components/form/imageUpload";
 
 const EmployeeForm = ({children}: {
@@ -14,7 +13,6 @@ const EmployeeForm = ({children}: {
 }) => {
     const {control, setValue} = useFormContext();
     const {errors} = useFormState();
-    const {uploading, uploadImage} = useUploadImage();
 
 
 
