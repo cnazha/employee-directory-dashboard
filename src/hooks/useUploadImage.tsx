@@ -35,14 +35,13 @@ const useUploadImage = () => {
     }
 
     const getFirebaseImageData = async (uploaded: UploadResult) => {
-        console.log(uploaded, 'uploaded')
         const payload = new Map();
         payload.set('bucket', uploaded.metadata.bucket);
         payload.set('fullPath', uploaded.metadata.fullPath);
         payload.set('path', uploaded.metadata.size);
         payload.set('url', `https://${payload.get('bucket')}/${payload.get('fullPath')}`);
         const data = Object.fromEntries(payload);
-        console.log(data, 'data')
+
         return data;
     }
 
@@ -54,17 +53,12 @@ const useUploadImage = () => {
             const image = target?.files?.[0] as File;
             let width;
             let height;
-
-            console.log(image)
             // @ts-ignore
             if (image == null && image.type.match('image.*')) {
                 return null;
             }
-            console.log(image, 'match')
             const imageName = generateImageName(image);
-            console.log(imageName, 'name')
             const storageRef = getStorageRef(entity, imageName);
-            console.log(storageRef, 'storageRef')
             const uploaded = await uploadBytes(storageRef, image);
             const downloadURL = await getDownloadURL(ref(storage, uploaded.metadata.fullPath))
             const data = {
@@ -75,9 +69,7 @@ const useUploadImage = () => {
             };
             return data;
         }catch (error) {
-            console.log(error);
-            // @ts-ignore
-            return DEFAULT_IMAGE;
+            return null
         }finally {
             setUploading(false)
         }
