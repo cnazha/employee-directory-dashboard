@@ -62,7 +62,7 @@ const EmployeesPage = () => {
         <Container>
             <Box>
                 <Stack direction="row" spacing={2} justifyContent={'space-between'}>
-                    <Typography variant="body1" gutterBottom>
+                    <Typography variant="h5" gutterBottom>
                         Employees Page
                     </Typography>
                     <Link href={'/dashboard/employees/add'}>
