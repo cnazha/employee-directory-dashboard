@@ -3,7 +3,10 @@ import {Card, CardActionArea, CardContent, CardMedia} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import {Employee} from "@/gql/graphql";
 
-const EmployeeCard = memo(({employee}: {employee: Employee}) => {
+const EmployeeCard = memo(({employee}: {employee?: Partial<Employee>}) => {
+    if (!employee) {
+        return <div>loading...</div>
+    }
     return (
         <Card sx={{ width: [
             200
@@ -30,7 +33,7 @@ const EmployeeCard = memo(({employee}: {employee: Employee}) => {
         </Card>
     );
 }, (prevProps, nextProps) => {
-    return prevProps.employee.id === nextProps.employee.id;
+    return prevProps?.employee?.id === nextProps?.employee?.id;
 });
 
 export default EmployeeCard;
