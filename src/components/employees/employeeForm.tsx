@@ -1,9 +1,10 @@
-import {Controller, useFormContext, useFormState} from "react-hook-form-mui";
+import {Controller, DatePickerElement, useFormContext, useFormState} from "react-hook-form-mui";
 import {Stack} from "@mui/system";
 import {MuiTelInput} from "mui-tel-input";
 import React from "react";
 import FormTextField from "@/components/form/formTextField";
 import DepartmentsDropDown from "@/components/departments/departmentsDropdown";
+import {employeeMaxBirthDate, employeeMinBirthDate} from "@/config/config";
 
 const EmployeeForm = ({children}: {
     children?: React.ReactNode
@@ -23,6 +24,14 @@ const EmployeeForm = ({children}: {
         <FormTextField label="Email"
                        error={errors['email']}
                        name={'email'}/>
+        <DatePickerElement name={'birthdate'}
+                           label="Birthdate"
+                            error={errors['birthdate']}
+                           maxDate={employeeMaxBirthDate}
+                           minDate={employeeMinBirthDate}
+                           defaultValue={employeeMinBirthDate}
+        />
+
         <Controller
             name="phone"
             control={control}

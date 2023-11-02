@@ -10,18 +10,19 @@ import EmployeeForm from "@/components/employees/employeeForm";
 import {useCreateEmployeeMutation} from "@/gql/operations";
 import {Employee} from "@/gql/graphql";
 import "yup-phone-lite";
+import {format} from "date-fns";
+import {useRouter} from "next/navigation";
 
 const defaultEmployeeFormValues: Partial<Omit<Employee, 'department'>> & {
     department: {
         id: string,
     },
-    birthDate: Date | null,
+    birthdate: Date | null,
 } = {
     firstName: '', lastName: '', email: '', phone: '',
-    department: {
-        id: '',
-    },
-    birthDate: null
+    // @ts-ignore
+    department: null,
+    birthdate: null
 }
 
 let employeeSchema = object({
@@ -30,8 +31,7 @@ let employeeSchema = object({
     department: object({
         id: string().required('Department is required'),
     }),
-    birthDate: date().required('Birth date is required')
-        .min(new Date(new Date().setFullYear(new Date().getFullYear() - 18)), 'Employee must be at least 18 years old'),
+    birthdate: date().required('Birth date is required'),
     email: string().email('Invalid email').required('Email is required'),
     phone: yup
         .string()
@@ -40,6 +40,8 @@ let employeeSchema = object({
 });
 
 const AddEmployeePage = () => {
+
+    const router = useRouter();
     const [createEmployee] = useCreateEmployeeMutation()
 
     return (<Container>
@@ -49,6 +51,10 @@ const AddEmployeePage = () => {
         }}>
             <FormContainer
                 onSuccess={async (data) => {
+                    // use date-fns to format the date to yyyy-mm-dd
+                    console.log(data)
+                    const birthdate = format(data.birthdate, 'yyyy-MM-dd')
+
                     try {
                         const {department, ...rest} = data;
                         if (!department) {
@@ -57,6 +63,7 @@ const AddEmployeePage = () => {
                         const createEmployeeInput = {
                             ...rest,
                             department: department.id,
+                            birthdate
                         }
                         const res = await createEmployee({
                             variables: {
@@ -66,6 +73,7 @@ const AddEmployeePage = () => {
                         if (!employee?.success){
                             return alert(employee?.message);
                         }
+                        router.push('/employees')
                     } catch (e: Error | any) {
                         alert(e?.message || e)
                     }
@@ -73,6 +81,7 @@ const AddEmployeePage = () => {
                 onError={(e) => {
                     console.error(e)
                 }}
+                // @ts-ignore
                 resolver={yupResolver(employeeSchema)}
                 defaultValues={defaultEmployeeFormValues}>
                 <EmployeeForm>
