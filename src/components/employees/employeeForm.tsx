@@ -20,18 +20,24 @@ const EmployeeForm = ({children}: {
         <FormTextField label="First name"
                        name={'firstName'}
                        error={errors['firstName']}
+                       required
+
         />
         <FormTextField label="Last name" name={'lastName'}
                        error={errors['lastName']}
+                       required
         />
         <FormTextField label="Job Title" name={'jobTitle'}
                        error={errors['jobTitle']}
+                       required
         />
         <DepartmentsDropDown name={'department'} error={errors['department']} />
         <FormTextField label="Email"
                        error={errors['email']}
+                       required
                        name={'email'}/>
         <DatePickerElement name={'birthdate'}
+                           required
                            label="Birthdate"
                            // @ts-ignore
                             error={errors['birthdate']}
@@ -46,6 +52,7 @@ const EmployeeForm = ({children}: {
             render={({field, fieldState,}) => (<MuiTelInput
                 {...field}
                 label="Phone"
+                required
                 defaultCountry={'LB'}
                 onlyCountries={["LB", "US", "FR"]}
                 helperText={String(fieldState.error?.message ?? '')}

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import {Employee} from "@/gql/graphql";
 
 const EmployeesCardList = ({employees}: {
-    employees: Employee[]
+    employees: Partial<Employee>[] | []
 }) => {
     if (!employees) {
         return <div>loading...</div>
