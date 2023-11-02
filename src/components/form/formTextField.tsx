@@ -1,7 +1,7 @@
 import {TextFieldElement, TextFieldElementProps} from "react-hook-form-mui";
 import React from "react";
 
-const FormTextField = ({name, label, error, ...props}: { name: string, label: string, error?: { message?: string } } & Partial<TextFieldElementProps>) => {
+const FormTextField = ({name, label, error, ...props}: { name: string, label: string, error?: { message?: string | null } } & Partial<TextFieldElementProps>) => {
     return (<TextFieldElement label={label}
                               name={name}
                               error={!!error}
