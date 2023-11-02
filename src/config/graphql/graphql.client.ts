@@ -6,11 +6,12 @@ import {
     NextSSRInMemoryCache,
     SSRMultipartLink,
 } from "@apollo/experimental-nextjs-app-support/ssr";
+import {GRAPHQL_API} from "@/config-global";
 
 // have a function to create a client for you
 export const makeGraphQLClient = () => {
     const httpLink = new HttpLink({
-        uri: "http://127.0.0.1:3000/graphql",
+        uri: GRAPHQL_API,
         fetchOptions: { cache: "no-store" },
         headers: {
             authorization: `Bearer 123456789`,
