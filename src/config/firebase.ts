@@ -2,9 +2,12 @@ import {FIREBASE_API} from "@/config-global";
 import {getAuth} from "firebase/auth";
 import {getFirestore} from "firebase/firestore";
 import {getStorage} from "@firebase/storage";
-import {initializeApp} from "firebase/app";
+import {getApps, initializeApp} from "firebase/app";
 
-export const firebaseApp = initializeApp(FIREBASE_API);
+
+export let firebaseApp = getApps().length <= 0 ? initializeApp(FIREBASE_API) : getApps()[0];
+
+
 
 export const AUTH = getAuth(firebaseApp);
 
