@@ -6,12 +6,12 @@ import {Employee} from "@/gql/graphql";
 const EmployeeCard = memo(({employee}: {employee: Employee}) => {
     return (
         <Card sx={{ width: [
-            200, 300
+            200
             ] }}>
             <CardActionArea>
                 <CardMedia
                     component="img"
-                    height="140"
+                    height="200"
                     image={employee.avatar?.url}
                     alt={employee.name}
                 />
@@ -21,6 +21,9 @@ const EmployeeCard = memo(({employee}: {employee: Employee}) => {
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                         {employee.department?.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {employee.jobTitle}
                     </Typography>
                 </CardContent>
             </CardActionArea>

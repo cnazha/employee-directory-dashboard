@@ -1,7 +1,7 @@
 "use client";
 import {Button, Container, Paper} from "@mui/material";
 import {FormContainer} from "react-hook-form-mui";
-import {date, object, string} from "yup";
+import {date, number, object, string} from "yup";
 import {yupResolver} from "@hookform/resolvers/yup";
 
 import EmployeeForm from "@/components/employees/employeeForm";
@@ -10,6 +10,7 @@ import {Employee} from "@/gql/graphql";
 import "yup-phone-lite";
 import {format} from "date-fns";
 import {useRouter} from "next/navigation";
+import useUploadImage from "@/hooks/useUploadImage";
 
 const defaultEmployeeFormValues: Partial<Omit<Employee, 'department'>> & {
     department: {
@@ -20,7 +21,9 @@ const defaultEmployeeFormValues: Partial<Omit<Employee, 'department'>> & {
     firstName: '', lastName: '', email: '', phone: '',
     // @ts-ignore
     department: null,
-    birthdate: null
+    birthdate: null,
+    avatar: null,
+    jobTitle: '',
 }
 
 
@@ -31,10 +34,12 @@ const AddEmployeePage = () => {
         refetchQueries: ['GetEmployees'],
         notifyOnNetworkStatusChange: true,
     })
+    const {uploading, uploadImage} = useUploadImage()
 
     let employeeSchema = object({
         firstName: string().required('First name is required'),
         lastName: string().required('Last name is required'),
+        jobTitle: string().required('Job title is required'),
         department: object({
             id: string().required('Department is required'),
         }),
@@ -44,6 +49,12 @@ const AddEmployeePage = () => {
         phone: string()
             .phone(["LB", "FR", "US"], "Please enter a valid phone number")
             .required(),
+        avatar: object({
+            url: string().required('Image is required'),
+            path: string().required('Image is required'),
+            width: number().default(300).required('Image is required'),
+            height: number().default(300).required('Image is required'),
+        })
     });
 
     return (<Container>

@@ -6,12 +6,17 @@ import React from "react";
 import FormTextField from "@/components/form/formTextField";
 import DepartmentsDropDown from "@/components/departments/departmentsDropdown";
 import {employeeMaxBirthDate, employeeMinBirthDate} from "@/config/config";
+import useUploadImage from "@/hooks/useUploadImage";
+import ImageUpload from "@/components/form/imageUpload";
 
 const EmployeeForm = ({children}: {
     children?: React.ReactNode
 }) => {
-    const {control,} = useFormContext();
-    const {errors} = useFormState()
+    const {control, setValue} = useFormContext();
+    const {errors} = useFormState();
+    const {uploading, uploadImage} = useUploadImage();
+
+
 
     return (<Stack spacing={2}>
         <FormTextField label="First name"
@@ -20,6 +25,9 @@ const EmployeeForm = ({children}: {
         />
         <FormTextField label="Last name" name={'lastName'}
                        error={errors['lastName']}
+        />
+        <FormTextField label="Job Title" name={'jobTitle'}
+                       error={errors['jobTitle']}
         />
         <DepartmentsDropDown name={'department'} error={errors['department']} />
         <FormTextField label="Email"
@@ -47,6 +55,7 @@ const EmployeeForm = ({children}: {
                 disableFormatting
             />)}
         />
+        <ImageUpload />
         {children}
 
     </Stack>);
