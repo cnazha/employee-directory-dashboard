@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         try {
             onAuthStateChanged(AUTH, async (user) => {
                 if (user) {
-                    if (user.emailVerified) {
+                    if (user) {
                         const userProfile = doc(DB, 'users', user.uid);
 
                         const docSnap = await getDoc(userProfile);
@@ -124,7 +124,6 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         initialize();
     }, [initialize]);
 
-    // LOGIN
     const login = useCallback(async (email: string, password: string) => {
         await signInWithEmailAndPassword(AUTH, email, password);
     }, []);
@@ -133,7 +132,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         await signOut(AUTH);
     }, []);
 
-    const checkAuthenticated = state.user?.emailVerified ? 'authenticated' : 'unauthenticated';
+    const checkAuthenticated = state.user ? 'authenticated' : 'unauthenticated';
 
     const status = state.loading ? 'loading' : checkAuthenticated;
 
