@@ -13,8 +13,9 @@ import ListItemText from '@mui/material/ListItemText';
 import ChecklistIcon from '@mui/icons-material/Checklist';
 import ThemeRegistry from '@/components/ThemeRegistry/ThemeRegistry';
 import ApolloWrapper from "@/config/graphql/apollo.wrapper";
-import {AdapterDayjs} from "@mui/x-date-pickers/AdapterDayjs";
+
 import {LocalizationProvider} from "@mui/x-date-pickers";
+import {AdapterDateFns} from "@mui/x-date-pickers/AdapterDateFns";
 
 
 const DRAWER_WIDTH = 240;
@@ -31,7 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <ThemeRegistry>
 
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
           <Drawer
             sx={{
               width: DRAWER_WIDTH,
